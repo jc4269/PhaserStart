@@ -1,0 +1,56 @@
+TODO:
+Features (Don't plan to implement everything, just things that make sense and are quick):
+- Timer that stops when all stars collected
+- Game over screen/text (scoreboard)
+- Enter name at start of game
+- Scoreboard
+  - Store top 5 (Name, Score, Time, Ratio)
+  - Sort by Ratio
+  - Scoreboards for each level
+  - Scoreboard for total 1 to max levels run
+- Menu
+  - Start
+    - Do all levels from 1 to max levels, total the score and time taken.
+    - Have a level Score and Time recorded separately as well.
+  - Level Select
+    - record Score and Time for that level separately.
+  - Scoreboard screen
+- add enemies
+  - player death on hit
+	- player can kill enemy in jump on head.
+		- if player dies, stop timer.
+  - player gets points if kill enemy (optional)
+  - Diamonds spawn from enemy if killed
+    - they should shoot away and bounce.
+
+  - Different enemy types: small Jump infrequent, frequent jump, larger jumper, fast, enemy that stays on platform but moves, immobile enemy, unkillable enemy (like spikes or something), charge when sees you, enemy that shoots a bullet when sees you, flying enemy goes up to down, left to right (slow, fast, shooter.)
+- Build in a function to move platforms up to down, left to right at a speed.
+- Multiple levels, about 9 levels (levels are tentative, just some ideas and progression)
+  - Level 1: no enemies, same 2 platforms, no moving platforms, a few stars
+  - Level 2: 1 moving enemy, 1 spike, same 2 platforms, no moving platforms, previous starts amount plus some stars
+  - Level 3: 2 moving enemy (one fast, one slow), 2 spikes, same 2 platforms, no moving platforms, previous starts amount plus some stars
+  - Level 4: 4 moving enemy (one infreq. jump, one fast, two slow), 2 spikes, same 2 platforms, no moving platforms, previous starts amount plus some stars
+  - Level 5: 6 moving enemy (one infreq. jump, one fast, two slow, one that stays on a platform), 3 spikes, extra 2 platforms different sizes, no moving platforms, previous starts amount plus some stars
+- For levels functions
+  - need to have an enemy spawner that spawns one of the allowed enemies at random.
+  - have a rectangle where possible spikes spawn with number spawned and no overlaps.
+    no stars can spawn over spikes.
+  - star spawner rectangle with number of stars, random location.
+- Diamonds
+  - Diamonds Spawn from enemies
+  - limited time alive
+  - when about to expire, have blink in and out faster as time runs out.
+Stars
+  - Star that stays in spot
+  - MAYBE: Animation like a small grow and shrink or moves in a small circle or vibrates in random directions coming back to center.
+- MAYBE: Add lives, start with 3
+  - If hit, take one life off, become invulnerable to enemies, flicker while invulnerable
+    - Lose stars to collect again haha sonic! (not serious feature but interesting task)
+
+- Player
+  - Short press short jump, long press long jump.
+  - press down to go down faster?
+  - MAYBE: Gun? limited ammo, 3 bullets, can find some as pick-ups to replenish. Or find Gun power up with 3 bullets. Possible enemies to implement: directional shield that always turns towards a bullet; and a spike on head that can't be killed by jumping, only gun.
+- MAYBE: refactor into functions or objects?
+  - spawning?
+  - Not sure yet

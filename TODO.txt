@@ -8,6 +8,7 @@ Features (Don't plan to implement everything, just things that make sense and ar
   - Sort by Ratio
   - Scoreboards for each level
   - Scoreboard for total 1 to max levels run
+  - Save scoreboard to cookies or file on server.
 - Menu
   - Start
     - Do all levels from 1 to max levels, total the score and time taken.

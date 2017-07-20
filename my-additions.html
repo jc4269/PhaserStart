@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 9</title>
-	<script type="text/javascript" src="js/phaser.min.js"></script>
+	<script type="text/javascript" src="js/phaser2.8.2.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -34,8 +34,29 @@ var cursors;
 var stars;
 var score = 0;
 var scoreText;
+var gameoverText;
+
+var gameover = false; //bool
+
+// array of dictionary scoreboards
+// each scoreboard will have up to top 5 scores each containing name, score, time, ratio; sorted by ratio.
+var scoreboards = new Array();
+var scoreboardText;
+//settings
+var numberOfLevels = 9;
+var numberOfStars = 12;
+
+
 
 function create() {
+		// setup scoreboards
+		// setup total run scoreboard
+
+		scoreboards.push(makeScoreboard('Total Scoreboard'));
+		// setup each level scoreboard
+		for (var i = 0; i < numberOfLevels; i++){
+			scoreboards.push(makeScoreboard( 'Level ' + (i + 1) + 'Scoreboard' ));
+		}
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -87,7 +108,7 @@ function create() {
     stars.enableBody = true;
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
+    for (var i = 0; i < numberOfStars; i++)
     {
         //  Create a star inside of the 'stars' group
         var star = stars.create(i * 70, 0, 'star');
@@ -108,6 +129,12 @@ function create() {
 }
 
 function update() {
+		if(!gameover && stars.countLiving()==0){ //gameover
+			gameoverHandling();
+		}
+		// if(gameover){
+		//
+		// }
 
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
@@ -158,6 +185,53 @@ function collectStar (player, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
 
+}
+
+function gameoverHandling() {
+	console.log("gameoverHandling");
+	gameover = true;
+	//display gameover screen
+	game.time.events.add(Phaser.Timer.SECOND * 2, removeGameover, this).autoDestroy = true;
+	gameoverText = game.add.text(0, 0, 'GAME OVER', { fontSize: '62px', fill: '#000', boundsAlignH: "center", boundsAlignV: "middle" });
+	gameoverText.setTextBounds(0, 0, game.width, game.height);
+
+	//set scoreboard
+	setScoreboard(score)
+}
+
+function removeGameover(){
+	console.log("removeGameover");
+	gameoverText.destroy();
+
+	printScoreboard(0);
+
+}
+
+function makeScoreboard(name){
+	//top 5 for each scoreboard
+	scoreboard = new Array();
+	for (var i = 0; i < 5; i++){
+		scoreboard.push({
+			'scoreboard_name': name,
+			'player_name': '',
+			'score': 0,
+			'time': 0,
+			'ratio': 0,
+		})
+	}
+	return scoreboard
+}
+
+function setScoreboard(score){
+	scoreboards[0][0]["score"] = score;
+}
+
+function printScoreboard(index){
+	game.add.text(0, 0, "Total Scoreboard", { fontSize: '40px', fill: '#000', boundsAlignH: "center", boundsAlignV: "middle" });
+	for(var i = 0; i < 5; i++){
+		game.add.text(0, 50 + i * 50, "Score:", { fontSize: '32px', fill: '#000', boundsAlignH: "center", boundsAlignV: "middle" });
+		game.add.text(100, 50 + i * 50, scoreboards[index][i]['score'], { fontSize: '32px', fill: '#000', boundsAlignH: "center", boundsAlignV: "middle" });
+	}
 }
 
 </script>
